@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace BinarySearchTree15
 {
-    internal class Tree2<T> where T : IComparable<T>
+    internal class Tree3<T> where T : IComparable
     {
         
+        
             public T NodeData { get; set; }
-            public Tree2<T> LeftTree { get; set; }
-            public Tree2<T> RightTree { get; set; }
-            public Tree2(T nodeData)
+            public Tree3<T> LeftTree { get; set; }
+            public Tree3<T> RightTree { get; set; }
+            public Tree3(T nodeData)
             {
                 this.NodeData = nodeData;
                 this.LeftTree = null;
@@ -26,14 +27,14 @@ namespace BinarySearchTree15
                 if ((currentNodeValue.CompareTo(item)) > 0)
                 {
                     if (this.LeftTree == null)
-                        this.LeftTree = new Tree2<T>(item);
+                        this.LeftTree = new Tree3<T>(item);
                     else
                         this.LeftTree.Insert(item);
                 }
                 else
                 {
                     if (this.RightTree == null)
-                        this.RightTree = new Tree2<T>(item);
+                        this.RightTree = new Tree3<T>(item);
                     else
                         this.RightTree.Insert(item);
                 }
@@ -57,7 +58,35 @@ namespace BinarySearchTree15
             public void GetSize()
             {
                 Console.WriteLine("Size" + " : " + (1 + this.leftCount + this.rightCount));
+            }
 
+            public bool IfExists(T element, Tree3<T> node)
+            {
+
+                if (node == null)
+                {
+                    Console.WriteLine("Element not found in Binary Search Tree");
+                    return false;
+                }
+                if (node.NodeData.Equals(element))
+                {
+                    Console.WriteLine("Found the element in Binary Search Tree  " + node.NodeData);
+                    return true;
+
+                }
+                else
+                {
+                    Console.WriteLine("Current element is {0} in binary Search Tree", node.NodeData);
+                }
+                if (element.CompareTo(node.NodeData) < 0)
+                {
+                    IfExists(element, node.LeftTree);
+                }
+                if (element.CompareTo(node.NodeData) > 0)
+                {
+                    IfExists(element, node.RightTree);
+                }
+                return true;
             }
         }
 }
